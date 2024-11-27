@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Weather Web App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" /> <!-- leaflet api -->
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <h1><a href="#">Weather Web App</a></h1>
+            <div class="search-field">
+
+                <input type="search" name="place" placeholder="Search location..." id="user-input">
+                <div class="search-svg">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" color="#000000"
+                        fill="none">
+                        <path d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                        <path
+                            d="M20 5.69899C19.0653 5.76636 17.8681 6.12824 17.0379 7.20277C15.5385 9.14361 14.039 9.30556 13.0394 8.65861C11.5399 7.6882 12.8 6.11636 11.0401 5.26215C9.89313 4.70542 9.73321 3.19045 10.3716 2"
+                            stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                        <path
+                            d="M2 11C2.7625 11.6621 3.83046 12.2682 5.08874 12.2682C7.68843 12.2682 8.20837 12.7649 8.20837 14.7518C8.20837 16.7387 8.20837 16.7387 8.72831 18.2288C9.06651 19.1981 9.18472 20.1674 8.5106 21"
+                            stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                        <path
+                            d="M19.8988 19.9288L22 22M21.1083 17.0459C21.1083 19.2805 19.2932 21.0919 17.0541 21.0919C14.8151 21.0919 13 19.2805 13 17.0459C13 14.8114 14.8151 13 17.0541 13C19.2932 13 21.1083 14.8114 21.1083 17.0459Z"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                </div>
+            </div>
+
+
+            <div class="user-info">
+                <div class="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" color="#000000"
+                        fill="none">
+                        <path
+                            d="M5.15837 11.491C5.08489 12.887 5.16936 14.373 3.92213 15.3084C3.34164 15.7438 3 16.427 3 17.1527C3 18.1508 3.7818 19 4.8 19H19.2C20.2182 19 21 18.1508 21 17.1527C21 16.427 20.6584 15.7438 20.0779 15.3084C18.8306 14.373 18.9151 12.887 18.8416 11.491C18.6501 7.85223 15.6438 5 12 5C8.35617 5 5.34988 7.85222 5.15837 11.491Z"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M10.5 3.125C10.5 3.95343 11.1716 5 12 5C12.8284 5 13.5 3.95343 13.5 3.125C13.5 2.29657 12.8284 2 12 2C11.1716 2 10.5 2.29657 10.5 3.125Z"
+                            stroke="currentColor" stroke-width="1.5" />
+                        <path d="M15 19C15 20.6569 13.6569 22 12 22C10.3431 22 9 20.6569 9 19" stroke="currentColor"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="user-svg">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" color="#000000"
+                        fill="none">
+                        <path
+                            d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+                            stroke="currentColor" stroke-width="1.5" />
+                        <path
+                            d="M14.75 9.5C14.75 11.0188 13.5188 12.25 12 12.25C10.4812 12.25 9.25 11.0188 9.25 9.5C9.25 7.98122 10.4812 6.75 12 6.75C13.5188 6.75 14.75 7.98122 14.75 9.5Z"
+                            stroke="currentColor" stroke-width="1.5" />
+                        <path
+                            d="M5.49994 19.0001L6.06034 18.0194C6.95055 16.4616 8.60727 15.5001 10.4016 15.5001H13.5983C15.3926 15.5001 17.0493 16.4616 17.9395 18.0194L18.4999 19.0001"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+    <div class="main-container">
+
+        <div class="current-weather-section">
+            <div class="left">
+                <div class="cityname">
+                    <h2>CITY-NAME</h2>
+                    <h4>
+                        <span>country</span>
+                    </h4>
+                </div>
+                <div class="temp-info">
+                    <p class="temp">0&deg;</p>
+                    <p class="temp-conversion">
+                        <span id="celsius" style="cursor:pointer;">C&deg</span> |
+                        <span id="fahrenheit" style="cursor:pointer;">F&deg</span>
+                    </p>
+                </div>
+                <div class="day-date-info">
+                    <p class="current_date">00-00-00</p>
+                    <p class="current_time">00:00 --</p>
+                </div>
+            </div>
+
+            <div class="right">
+                <div class="icon">
+                    <img class="weather-icon" width="48" height="48" src="./aseets/01d.png" alt="weather-icon" />
+                </div>
+                <p class="weather-description">Sunny
+                </p>
+
+                <p class="max-min-Temp">
+                    <span>&uarr;</span><span>25&deg</span>
+                    <span>&darr;</span><span>25&deg</span>
+                </p>
+            </div>
+        </div>
+        <div class="map-section" id="map-container">
+
+        </div>
+
+        <div class="forecast-current-weather">
+            <ul class="forecast-list">
+                <!-- <li>
+                    <span>Sunday</span>
+                    <span>25&deg;</span>
+                    <span>broken clouds</span>
+                    <img src="./aseets/01d.png" alt="weather-icon">
+                </li>
+                <li><span>Sunday</span></li>
+                <li><span>Sunday</span></li> -->
+            </ul>
+        </div>
+
+        <div class="more-weather-info">
+            <div class="first_line_info">
+                <div class="info-sec">
+                    <img src="./aseets/atm-pressure.png" alt="" srcset="">
+                    <p class="atm-pressure">203 <span>hPa</span>
+                    </p>
+                </div>
+                <div class="nearby-locations">
+                    <ul id="locations-list">
+                    </ul>
+                </div>
+            </div>
+
+            <div class="more-info">
+                <div class="left">
+                    <div class="coordinate">
+                        <p class="lat">Latitude:</p>
+                        <p class="lon">Longitude: </p>
+                    </div>
+                    <div class="infos">
+
+                        <!-- humidity section  -->
+                        <p class="humidity"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20"
+                                height="20" color="#000000" fill="none">
+                                <path
+                                    d="M3.5 13.678C3.5 9.49387 7.08079 5.35907 9.59413 2.97222C10.9591 1.67593 13.0409 1.67593 14.4059 2.97222C16.9192 5.35907 20.5 9.49387 20.5 13.678C20.5 17.7804 17.2812 22 12 22C6.71878 22 3.5 17.7804 3.5 13.678Z" />
+                                <path d="M16 14C16 16.2091 14.2091 18 12 18" stroke="white" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg><span class="current_humidity">Humidity:</span>
+                        </p>
+
+                        <!-- cloud section -->
+                        <p class="Cloudiness"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20"
+                                height="20" color="#000000" fill="none">
+                                <path
+                                    d="M17.4776 10.0001C17.485 10 17.4925 10 17.5 10C19.9853 10 22 12.0147 22 14.5C22 16.9853 19.9853 19 17.5 19H7C4.23858 19 2 16.7614 2 14C2 11.4003 3.98398 9.26407 6.52042 9.0227M17.4776 10.0001C17.4924 9.83536 17.5 9.66856 17.5 9.5C17.5 6.46243 15.0376 4 12 4C9.12324 4 6.76233 6.20862 6.52042 9.0227M17.4776 10.0001C17.3753 11.1345 16.9286 12.1696 16.2428 13M6.52042 9.0227C6.67826 9.00768 6.83823 9 7 9C8.12582 9 9.16474 9.37209 10.0005 10"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg><span class="current_cloud">Cloudiness: </span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="right">
+                    <div class="sun_rise_set_timing">
+                        <p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"
+                                color="#000000" fill="none">
+                                <path
+                                    d="M9.5 6.5C9.99153 5.9943 11.2998 4 12 4M14.5 6.5C14.0085 5.9943 12.7002 4 12 4M12 4V10"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M18.3633 10.6357L16.9491 12.05" stroke="white" stroke-width="1.5"
+                                    stroke-linecap="round" />
+                                <path d="M3 17H5" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+                                <path d="M5.63657 10.6356L7.05078 12.0498" stroke="white" stroke-width="1.5"
+                                    stroke-linecap="round" />
+                                <path d="M21 17H19" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+                                <path d="M21 20H3" stroke-width="1.5" stroke-linecap="round" />
+                                <path d="M16 17C16 14.7909 14.2091 13 12 13C9.79086 13 8 14.7909 8 17"
+                                    stroke-width="1.5" stroke-linecap="round" />
+                            </svg><span class="sunrise">Sunrise:</span></p>
+                        <p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"
+                                color="#000000" fill="none">
+                                <path
+                                    d="M9.5 7.5C9.99153 8.0057 11.2998 10 12 10M14.5 7.5C14.0085 8.0057 12.7002 10 12 10M12 10V4"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M18.3633 10.6357L16.9491 12.05" stroke="white" stroke-width="1.5"
+                                    stroke-linecap="round" />
+                                <path d="M3 17H5" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+                                <path d="M5.63657 10.6356L7.05078 12.0498" stroke="white" stroke-width="1.5"
+                                    stroke-linecap="round" />
+                                <path d="M21 17H19" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+                                <path d="M21 20H3" stroke-width="1.5" stroke-linecap="round" />
+                                <path d="M16 17C16 14.7909 14.2091 13 12 13C9.79086 13 8 14.7909 8 17"
+                                    stroke-width="1.5" stroke-linecap="round" />
+                            </svg><span class="sunset">Sunset:</span> </p>
+                    </div>
+                    <div class="wind">
+                        <p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"
+                                color="#000000" fill="none">
+                                <path
+                                    d="M2 5.94145C5.5 9.37313 10.5755 7.90241 11.7324 5.94145C11.9026 5.65301 12 5.31814 12 4.96096C12 3.87795 11.1046 3 10 3C8.89543 3 8 3.87795 8 4.96096"
+                                    stroke-width="1.5" stroke-linecap="round" />
+                                <path
+                                    d="M17 8.92814C17 7.31097 18.1193 6 19.5 6C20.8807 6 22 7.31097 22 8.92814C22 9.6452 21.7799 10.3021 21.4146 10.8111C19.3463 14.1915 9.2764 12.9164 4 11.8563"
+                                    stroke-width="1.5" stroke-linecap="round" />
+                                <path
+                                    d="M13.0854 19.8873C13.2913 20.5356 13.8469 21 14.5 21C15.3284 21 16 20.2528 16 19.331C16 19.0176 15.9224 18.7244 15.7873 18.4738C14.4999 15.9925 7.99996 14.3239 2 18.7746"
+                                    stroke-width="1.5" stroke-linecap="round" />
+                                <path d="M19 15.5H21" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg><span class="wind-speed">Wind-Speed: </span>
+                        </p>
+
+                        <p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"
+                                color="#000000" fill="none">
+                                <path
+                                    d="M18.1961 3.19938C17.7215 2.6096 17.4842 2.3147 17.1597 2.15735C16.8353 2 16.4646 2 15.7232 2H13.6095C12.8508 2 12.4714 2 12.2357 2.24408C12 2.48816 12 2.88099 12 3.66667V7H15.7232C16.4646 7 16.8353 7 17.1597 6.84265C17.4842 6.6853 17.7215 6.3904 18.1961 5.80061L18.3841 5.56697C18.7947 5.0568 19 4.80171 19 4.5C19 4.19829 18.7947 3.9432 18.3841 3.43303L18.1961 3.19938Z"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path
+                                    d="M18.1961 12.1994C17.7215 11.6096 17.4842 11.3147 17.1597 11.1574C16.8353 11 16.4646 11 15.7232 11H12V16H15.7232C16.4646 16 16.8353 16 17.1597 15.8426C17.4842 15.6853 17.7215 15.3904 18.1961 14.8006L18.3841 14.567C18.7947 14.0568 19 13.8017 19 13.5C19 13.1983 18.7947 12.9432 18.3841 12.433L18.1961 12.1994Z"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path
+                                    d="M5.80388 8.19938C6.27851 7.6096 6.51583 7.3147 6.84026 7.15735C7.16469 7 7.53539 7 8.2768 7H12V12H8.2768C7.53539 12 7.16469 12 6.84026 11.8426C6.51583 11.6853 6.27851 11.3904 5.80388 10.8006L5.61585 10.567C5.20528 10.0568 5 9.80171 5 9.5C5 9.19829 5.20528 8.9432 5.61585 8.43303L5.80388 8.19938Z"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M12 22L12 3" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M9 22H15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg><span class="wind-dir">Wind-dir: </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="current-forecast-container">
+            <ul class = "current-forecast-list">
+                <!-- <li>03:00 AM: 25&deg;</li>
+                <li>03:00 AM: 25&deg;</li> -->
+            </ul>
+        </div>
+
+
+    </div>
+
+    <script src="./script.js"></script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> <!-- leaflet map -->
+</body>
+
+</html>
