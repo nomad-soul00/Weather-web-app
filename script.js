@@ -118,7 +118,7 @@ async function weatherReq(lat, lon) {
 //function for data processing
 async function processDatas(responseWeather) {
   // ------recorder infos------
-  console.log(responseWeather);
+  // console.log(responseWeather);
 
   let city = responseWeather.city.name;
   let country = responseWeather.city.country;
@@ -650,7 +650,7 @@ function futureForecast(user_date, data_list, dateArray) {
       const forecast_time_date = data_list.list[i].dt_txt;
       if (forecast_time_date === forecastDate) {
         let info = data_list.list[i]
-        console.log(info);
+        // console.log(info);
         setforecastInfo(info);
       }
     }
@@ -698,7 +698,7 @@ function currentForecastList(userdate, usertime, data_list) {
   }
 
 
-  console.log(matchingtime);
+  // console.log(matchingtime);
   // console.log(matchingindices);
 
   const userminute = timeToNumber12HourFormat(usertime);
@@ -718,7 +718,7 @@ function currentForecastList(userdate, usertime, data_list) {
       let index = item.split(",")[1];
       let time = item.split(",")[0];
       let temp = convertKelvinToCelsius(data_list.list[index].main.temp);
-      console.table({ "time": time, "position": index, "temp": temp });
+      // console.table({ "time": time, "position": index, "temp": temp });
 
       current_forecast_list.style.visibility = 'visible';
       let list = `<li>${time}: <span class="blue-text">${temp}&deg;</span></li>`
