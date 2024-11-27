@@ -5,7 +5,7 @@ const APIKEY = '28eb39bbdaa118f294b477907525a5cf';
 let weatherApi = `https://api.openweathermap.org/data/2.5/forecast?lat=33.44&lon=-94.04&appid=28eb39bbdaa118f294b477907525a5cf`;
 
 
-let geocodingApi = "http://api.openweathermap.org/geo/1.0/direct?q=London&appid=28eb39bbdaa118f294b477907525a5cf"
+let geocodingApi = "https://api.openweathermap.org/geo/1.0/direct?q=London&appid=28eb39bbdaa118f294b477907525a5cf"
 
 //dom components--------------------------------
 
@@ -72,7 +72,7 @@ search_btn.addEventListener("click", () => {
 //geocoding functions
 async function apiCall(userInput) {
   try {
-    let geocode_result = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${userInput}&appid=${APIKEY}`);
+    let geocode_result = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${userInput}&appid=${APIKEY}`);
     let geocode_response = await geocode_result.json();
 
     if (geocode_response.length > 0) {
@@ -148,7 +148,7 @@ async function processDatas(responseWeather) {
 //Array of time and date 
 async function getallTimearray() {
   try {
-    let geocode_result = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${user_Input.value}&appid=${APIKEY}`);
+    let geocode_result = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${user_Input.value}&appid=${APIKEY}`);
     let geocode_response = await geocode_result.json();
 
     if (geocode_response.length > 0) {
@@ -458,7 +458,7 @@ temp_fahrenheit.addEventListener("click", async () => {
   }
   else {
     try {
-      let geocode_result = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${user_Input.value}&appid=${APIKEY}`);
+      let geocode_result = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${user_Input.value}&appid=${APIKEY}`);
       let geocode_response = await geocode_result.json();
 
       if (geocode_response.length > 0) {
@@ -500,7 +500,7 @@ temp_celcius.addEventListener("click", async () => {
   }
   else {
     try {
-      let geocode_result = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${user_Input.value}&appid=${APIKEY}`);
+      let geocode_result = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${user_Input.value}&appid=${APIKEY}`);
       let geocode_response = await geocode_result.json();
 
       if (geocode_response.length > 0) {
