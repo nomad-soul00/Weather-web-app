@@ -713,6 +713,8 @@ function currentForecastList(userdate, usertime, data_list) {
   }
 
   // creating list elements
+
+  //test changes
   current_forecast_list.innerHTML = "";
   if (listtime.length !== 0) {
     listtime.forEach(item => {
