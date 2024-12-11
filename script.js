@@ -713,6 +713,7 @@ function currentForecastList(userdate, usertime, data_list) {
   }
 
   // creating list elements
+  current_forecast_list.innerHTML = "";
   if (listtime.length !== 0) {
     listtime.forEach(item => {
       let index = item.split(",")[1];
